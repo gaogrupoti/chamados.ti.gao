@@ -102,46 +102,45 @@
     <div class="status" id="status"></div>
   </form>
 
-  <script>
-    const form = document.getElementById('formChamado');
-    const status = document.getElementById('status');
+ <script>
+  const form = document.getElementById('formChamado');
+  const status = document.getElementById('status');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-      const formData = new FormData(form);
-      const dados = Object.fromEntries(formData.entries());
+    const formData = new FormData(form);
 
-      status.textContent = '⏳ Enviando chamado...';
-      status.className = 'status';
+    const dados = new URLSearchParams();
+    for (const [key, value] of formData.entries()) {
+      dados.append(key, value);
+    }
 
-      try {
-        const resposta = await fetch('https://script.google.com/macros/s/AKfycbyQs7oMfFtbevMVH4hmScxOZZYldPRfSwKjB7HgDrnf8EepDnrE7cra8TkRfBdA2S2E/exec', {
-          method: 'POST',
-          body: new URLSearchParams({
-          nome: nome,
-          setor: setor,
-          descricao: descricao,
-          prioridade: prioridade
-       })
-        });
+    status.textContent = '⏳ Enviando chamado...';
+    status.className = 'status';
 
-        const data = await resposta.json();
+    try {
+      const resposta = await fetch('https://script.google.com/macros/s/AKfycbyNZAZK1-OVUdfne_-ck__R2GBVXM0hbg0VSqd4qx0_wpwATCVLpQZz-_mhJGEuvOehRw/exec', {
+        method: 'POST',
+        body: dados
+      });
 
-        if (data.sucesso) {
-          status.textContent = '✅ Chamado enviado com sucesso!';
-          status.className = 'status success';
-          form.reset();
-        } else {
-          status.textContent = '❌ Falha no envio. Verifique os dados.';
-          status.className = 'status error';
-        }
-      } catch (error) {
-        status.textContent = '❌ Erro de rede ou script offline.';
+      const data = await resposta.json();
+
+      if (data.sucesso) {
+        status.textContent = '✅ Chamado enviado com sucesso!';
+        status.className = 'status success';
+        form.reset();
+      } else {
+        status.textContent = '❌ Falha no envio. Verifique os dados.';
         status.className = 'status error';
-        console.error('Erro:', error);
       }
-    });
-  </script>
+    } catch (error) {
+      status.textContent = '❌ Erro de rede ou script offline.';
+      status.className = 'status error';
+      console.error('Erro:', error);
+    }
+  });
+</script>
 </body>
 </html>
