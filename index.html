@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chamados T.I GAO</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .status.success {
+      color: green;
+    }
+
+    .status.error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Chamados T.I GAO</h2>
+  <form id="formChamado">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required />
+
+    <label for="setor">Setor:</label>
+    <input type="text" id="setor" name="setor" required />
+
+    <label for="descricao">Descrição do Problema:</label>
+    <textarea id="descricao" name="descricao" required></textarea>
+
+    <label for="prioridade">Prioridade:</label>
+    <select id="prioridade" name="prioridade" required>
+      <option value="">Selecione</option>
+      <option value="Baixa">Baixa</option>
+      <option value="Média">Média</option>
+      <option value="Alta">Alta</option>
+    </select>
+
+    <button type="submit">Enviar Chamado</button>
+    <div class="status" id="status"></div>
+  </form>
+
+  <script>
+    const form = document.getElementById('formChamado');
+    const status = document.getElementById('status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const dados = Object.fromEntries(formData.entries());
+
+      status.textContent = '⏳ Enviando chamado...';
+      status.className = 'status';
+
+      try {
+        const resposta = await fetch('https://script.google.com/macros/s/AKfycbyjIpqM-7TrNSYBafKuzjmEGwdgzm7cLYNPSieK8RrasoqwuhtV--FI0s45fqGt6-4nDg/exec', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dados)
+        });
+
+        const data = await resposta.json();
+
+        if (data.sucesso) {
+          status.textContent = '✅ Chamado enviado com sucesso!';
+          status.className = 'status success';
+          form.reset();
+        } else {
+          status.textContent = '❌ Falha no envio. Verifique os dados.';
+          status.className = 'status error';
+        }
+      } catch (error) {
+        status.textContent = '❌ Erro de rede ou script offline.';
+        status.className = 'status error';
+        console.error('Erro:', error);
+      }
+    });
+  </script>
+</body>
+</html>
