@@ -109,23 +109,15 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const dados = {
-        nome: document.getElementById('nome').value,
-        setor: document.getElementById('setor').value,
-        descricao: document.getElementById('descricao').value,
-        prioridade: document.getElementById('prioridade').value
-      };
+      const formData = new FormData(form); // ✅ Usa FormData, sem CORS
 
       status.textContent = '⏳ Enviando chamado...';
       status.className = 'status';
 
       try {
-        const resposta = await fetch('https://script.google.com/macros/s/AKfycbyNZAZK1-OVUdfne_-ck__R2GBVXM0hbg0VSqd4qx0_wpwATCVLpQZz-_mhJGEuvOehRw/exec', {
+        const resposta = await fetch('https://script.google.com/macros/s/AKfycbwkgI6GpD02O1iNYyd_W2hFrMfYJS-GBSCQQTqvrTvGH0TT7PVSvZbpeDb3jDtQyK9phw/exec', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(dados)
+          body: formData
         });
 
         const data = await resposta.json();
