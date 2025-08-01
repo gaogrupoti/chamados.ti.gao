@@ -118,8 +118,12 @@
       try {
         const resposta = await fetch('https://script.google.com/macros/s/AKfycbyb8Oyo-bjjIxEPqjO3VcA6NabJMcxX_2mZhZLELC9WngDhYTjGtbXQiP1H2rqVwgPkRw/exec', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(dados)
+          body: new URLSearchParams({
+          nome: nome,
+          setor: setor,
+          descricao: descricao,
+          prioridade: prioridade
+       })
         });
 
         const data = await resposta.json();
