@@ -147,9 +147,9 @@
       const fileInput = document.getElementById('foto');
       if (fileInput.files.length > 0) {
         try {
-          const imgurResponse = await uploadImgur(fileInput.files[0]);
-          if (imgurResponse.success) {
-            formData.append('fotoUrl', imgurResponse.data.link);
+          const cloudRes = await uploadCloudinary(fileInput.files[0]);
+          if (cloudRes.secure_url) {
+           formData.append('fotoUrl', cloudRes.secure_url);
           } else {
             status.textContent = "❌ Erro no upload da imagem.";
             status.className = "status error";
@@ -167,7 +167,7 @@
       }
 
       try {
-        const resposta = await fetch('https://script.google.com/macros/s/AKfycbyVhhKbO5NkuArqJK2o7K1hTu0CzztGqM8eANi8i40rPmrvdZ0SC1M8Gxxqheh0BsTdoQ/exec', {
+        const resposta = await fetch('https://script.google.com/macros/s/AKfycbyn5h7EjS7WdCmeGpG14lCQhELdeMB7AA8E3fxBGkrHYaof-9RTPJ3EDCEoQpXW6Q4e7A/exec', {
           method: 'POST',
           body: formData
         });
@@ -191,22 +191,22 @@
       }
     });
 
-    async function uploadImgur(file) {
-      const clientId = 'SEU_CLIENT_ID_IMGUR'; // Troque aqui
-      const form = new FormData();
-      form.append('image', file);
+    async function uploadCloudinary(file) {
+  const form = new FormData();
+  form.append('file', file);
+  form.append('upload_preset', 'ml_padrao'); // troque se necessário
+  form.append('folder', 'chamados_ti'); // opcional, pasta dentro da conta
 
-      const res = await fetch('https://api.imgur.com/3/image', {
-        method: 'POST',
-        headers: {
-          Authorization: 'Client-ID ' + clientId,
-        },
-        body: form
-      });
+  const res = await fetch('https://api.cloudinary.com/v1_1/dbpjyi5dk/image/upload', {
+    method: 'POST',
+    body: form
+  });
 
-      return await res.json();
-    }
+  return await res.json();
+}
+
   </script>
 </body>
 </html>
+
 
