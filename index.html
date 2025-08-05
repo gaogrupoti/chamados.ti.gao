@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CHAMADOS T.I GAO</title>
+   <link rel="icon"
+        href="https://imgur.com/icQpCmJ.png"
+		type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
   <style>
@@ -15,14 +18,37 @@
       min-height: 100vh;
     }
     .form-container {
-      background: #fff; padding: 40px; border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-      max-width: 700px; width: 100%; transition: 0.3s;
+      background: #fff; padding: 40px; border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      max-width: 800px; width: 100%;
     }
-    h2 { text-align: center; margin-bottom: 30px; color: #343a40; }
-    label { display: block; margin-bottom: 8px; font-weight: 600; color: #495057; }
+    .logo {
+      display: block;
+      margin: 0 auto 20px;
+      max-width: 180px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #343a40;
+      font-weight: 700;
+    }
+    .input-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 6px;
+    }
+    label i {
+      margin-right: 8px;
+      color: #0d6efd;
+    }
     input, select, textarea {
-      width: 100%; padding: 12px; margin-bottom: 20px;
+      width: 100%; padding: 12px;
       border: 1px solid #ced4da; border-radius: 6px;
       font-size: 14px; background: #f8f9fa; color: #212529;
     }
@@ -35,7 +61,9 @@
       transition: background-color 0.2s ease;
     }
     button:hover { background-color: #157347; }
-    .status { text-align: center; margin-top: 20px; font-weight: 600; }
+    .status {
+      text-align: center; margin-top: 20px; font-weight: 600;
+    }
     .status.error { color: red; }
     .modal {
       display: none; position: fixed; z-index: 1000; left: 0; top: 0;
@@ -56,53 +84,88 @@
 </head>
 <body>
   <div class="form-container">
+    <img src="https://i.imgur.com/NNKT1l1.png" alt="Logo GAO" class="logo">
     <h2><i class="bi bi-tools"></i> CHAMADOS T.I GAO</h2>
     <form id="formChamado">
       <input type="hidden" id="datahora" name="datahora" />
-      <label for="tarefa">Tarefa</label>
-      <input type="text" id="tarefa" name="tarefa" required />
-      <label for="nome">Nome do Solicitante</label>
-      <input type="text" id="nome" name="nome" required />
-      <label for="email">E-mail Corporativo</label>
-      <input type="email" id="email" name="email" required />
-      <label for="setor">Setor/Departamento</label>
-      <input type="text" id="setor" name="setor" required />
-      <label for="local">Local do Problema</label>
-      <input type="text" id="local" name="local" />
-      <label for="tipo">Tipo do Problema</label>
-      <select id="tipo" name="tipo" required>
-        <option value="">Selecione</option>
-        <option value="Acesso / Login">Acesso / Login</option>
-        <option value="Equipamento com defeito">Equipamento com defeito</option>
-        <option value="Impressora">Impressora</option>
-        <option value="Internet / Rede">Internet / Rede</option>
-        <option value="Sistema interno">Sistema interno</option>
-        <option value="Instalação / Recurso">Instalação / Recurso</option>
-        <option value="Outro">Outro</option>
-      </select>
-      <label for="impacto">Impacto</label>
-      <select id="impacto" name="impacto" required>
-        <option value="">Selecione</option>
-        <option value="Individual">Apenas meu usuário</option>
-        <option value="Setor">Afeta meu setor</option>
-        <option value="Geral">Afeta toda a empresa</option>
-      </select>
-      <label for="descricao">Descrição Completa</label>
-      <textarea id="descricao" name="descricao" required></textarea>
-      <label for="foto">Foto do Problema (opcional)</label>
-      <input type="file" id="foto" name="foto" accept="image/*" />
-      <label for="prioridade">Prioridade</label>
-      <select id="prioridade" name="prioridade" required>
-        <option value="">Selecione</option>
-        <option value="Baixa">Baixa</option>
-        <option value="Média">Média</option>
-        <option value="Alta">Alta</option>
-      </select>
-      <label for="notificar">Deseja notificação por WhatsApp?</label>
-      <select id="notificar" name="notificar">
-        <option value="Não">Não</option>
-        <option value="Sim">Sim</option>
-      </select>
+
+      <div class="input-group">
+        <label for="tarefa"><i class="bi bi-pencil-square"></i> Tarefa</label>
+        <input type="text" id="tarefa" name="tarefa" required />
+      </div>
+
+      <div class="input-group">
+        <label for="nome"><i class="bi bi-person-fill"></i> Nome do Solicitante</label>
+        <input type="text" id="nome" name="nome" required />
+      </div>
+
+      <div class="input-group">
+        <label for="email"><i class="bi bi-envelope-fill"></i> E-mail Corporativo</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+
+      <div class="input-group">
+        <label for="setor"><i class="bi bi-diagram-3-fill"></i> Setor/Departamento</label>
+        <input type="text" id="setor" name="setor" required />
+      </div>
+
+      <div class="input-group">
+        <label for="local"><i class="bi bi-geo-alt-fill"></i> Local do Problema</label>
+        <input type="text" id="local" name="local" />
+      </div>
+
+      <div class="input-group">
+        <label for="tipo"><i class="bi bi-question-circle-fill"></i> Tipo do Problema</label>
+        <select id="tipo" name="tipo" required>
+          <option value="">Selecione</option>
+          <option value="Acesso / Login">Acesso / Login</option>
+          <option value="Equipamento com defeito">Equipamento com defeito</option>
+          <option value="Impressora">Impressora</option>
+          <option value="Internet / Rede">Internet / Rede</option>
+          <option value="Sistema interno">Sistema interno</option>
+          <option value="Instalação / Recurso">Instalação / Recurso</option>
+          <option value="Outro">Outro</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="impacto"><i class="bi bi-exclamation-circle-fill"></i> Impacto</label>
+        <select id="impacto" name="impacto" required>
+          <option value="">Selecione</option>
+          <option value="Individual">Apenas meu usuário</option>
+          <option value="Setor">Afeta meu setor</option>
+          <option value="Geral">Afeta toda a empresa</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="descricao"><i class="bi bi-card-text"></i> Descrição Completa</label>
+        <textarea id="descricao" name="descricao" required></textarea>
+      </div>
+
+      <div class="input-group">
+        <label for="foto"><i class="bi bi-camera-fill"></i> Foto do Problema (opcional)</label>
+        <input type="file" id="foto" name="foto" accept="image/*" />
+      </div>
+
+      <div class="input-group">
+        <label for="prioridade"><i class="bi bi-arrow-up-circle-fill"></i> Prioridade</label>
+        <select id="prioridade" name="prioridade" required>
+          <option value="">Selecione</option>
+          <option value="Baixa">Baixa</option>
+          <option value="Média">Média</option>
+          <option value="Alta">Alta</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="notificar"><i class="bi bi-whatsapp"></i> Deseja notificação por WhatsApp?</label>
+        <select id="notificar" name="notificar">
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
+        </select>
+      </div>
+
       <button type="submit" id="enviarBtn"><i class="bi bi-send-check"></i> Enviar Chamado</button>
       <div class="status" id="status"></div>
     </form>
@@ -114,7 +177,6 @@
       <button onclick="fecharModal()">Fechar</button>
     </div>
   </div>
-
   <script>
     const form = document.getElementById('formChamado');
     const status = document.getElementById('status');
@@ -167,7 +229,7 @@
       }
 
       try {
-        const resposta = await fetch('https://script.google.com/macros/s/AKfycbymMsdRN2YlyszpsjGuEs4kzV8XJ2oliqA-v8ntaiU2p2YKe3hNIUTJCZo7y-Uk7i3B4Q/exec', {
+        const resposta = await fetch('https://script.google.com/macros/s/AKfycbyJl4wywtrvhOh5HwN3ww6memJCaq73TESb6CoafPS03IKqxGvLvpl2ws3U41Q3qs9cMQ/exec', {
           method: 'POST',
           body: formData
         });
@@ -208,6 +270,3 @@
   </script>
 </body>
 </html>
-
-
-
